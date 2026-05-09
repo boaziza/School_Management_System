@@ -1,0 +1,32 @@
+const teacherModel = require('../models/teacherModel');
+const teacherDto   = require('../dtos/teacherDto');
+
+async function createTeacher(data) {
+  const teacher = await teacherModel.create(data);
+  return teacherDto(teacher);
+}
+
+async function getAllTeachers() {
+  const teachers = await teacherModel.findAll();
+  return teachers.map(teacherDto);
+}
+
+async function getTeacherById(id) {
+  const teacher = await teacherModel.findById(id);
+  if (!teacher) throw new Error('Teacher not found');
+  return teacherDto(teacher);
+}
+
+async function updateTeacher(id, data) {
+  const teacher = await teacherModel.update(id, data);
+  if (!teacher) throw new Error('Teacher not found');
+  return teacherDto(teacher);
+}
+
+async function deleteTeacher(id) {
+  const teacher = await teacherModel.remove(id);
+  if (!teacher) throw new Error('Teacher not found');
+  return teacherDto(teacher);
+}
+
+module.exports = { createTeacher, getAllTeachers, getTeacherById, updateTeacher, deleteTeacher };

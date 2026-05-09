@@ -1,0 +1,29 @@
+const subjectModel = require('../models/subjectModel');
+
+async function createSubject(data) {
+  return await subjectModel.create(data);
+}
+
+async function getAllSubjects() {
+  return await subjectModel.findAll();
+}
+
+async function getSubjectById(id) {
+  const subject = await subjectModel.findById(id);
+  if (!subject) throw new Error('Subject not found');
+  return subject;
+}
+
+async function updateSubject(id, data) {
+  const subject = await subjectModel.update(id, data);
+  if (!subject) throw new Error('Subject not found');
+  return subject;
+}
+
+async function deleteSubject(id) {
+  const subject = await subjectModel.remove(id);
+  if (!subject) throw new Error('Subject not found');
+  return subject;
+}
+
+module.exports = { createSubject, getAllSubjects, getSubjectById, updateSubject, deleteSubject };
